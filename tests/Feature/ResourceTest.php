@@ -59,4 +59,38 @@ class ResourceTest extends TestCase
     // Wrap Attribute
     // Secara default, data JSON yang kita kembalikan dalam method toArray() akan di wrap dalam attribute bernama "data" seperti pada implementasi diatas
     // Jika kita ingin mengubah nama attribute di JSON nya, kita bisa ubah menggunakan attribute $wrap di resource nya
+    
+
+
+    // # Resource Collection
+    // Secara default, Resource yang sudah kita buat, bisa kita gunakan untuk menampilkan data multiple object atau dalam bentuk JSON Array
+    // Kita bisa menggunakan static method collection() ketika membuat Resource nya, dan gunakan parameter berisi data collection
+    // Implementasi file: routes/api.php
+
+    // Implementasi test
+    public function testResourceCollection()
+    {
+        // jalankan seeder
+        $this->seed(CategorySeeder::class);
+        // panggil collection
+        $categories = Category::all();
+        $this->get('/api/categories')
+        ->assertStatus(200)
+        ->assertJson([
+            'data' => [
+                [
+                    'id' => $categories[0]->id,
+                    'name' => $categories[0]->name,
+                    'created_at' => $categories[0]->created_at->toJson(),
+                    'updated_at' => $categories[0]->updated_at->toJson(),
+                ],
+                [
+                    'id' => $categories[1]->id,
+                    'name' => $categories[1]->name,
+                    'created_at' => $categories[1]->created_at->toJson(),
+                    'updated_at' => $categories[1]->updated_at->toJson(),
+                ],
+            ],
+        ]);
+    }
 }

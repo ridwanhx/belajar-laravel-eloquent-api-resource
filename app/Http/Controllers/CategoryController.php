@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Resources\CategoryResource;
+use Illuminate\Database\Eloquent\Collection;
 
 class CategoryController extends Controller
 {
@@ -16,4 +17,12 @@ class CategoryController extends Controller
         // kembalikan object baru yang dihasilkan dari CategoryResource berdasarkan object $category
         return new CategoryResource($category);
     } 
+
+
+    // Implementasi materi Resource Collection
+    public function resourceCollection()
+    {
+        $ategories = Category::all();
+        return CategoryResource::collection($ategories);
+    }
 }
