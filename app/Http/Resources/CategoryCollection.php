@@ -16,8 +16,13 @@ class CategoryCollection extends ResourceCollection
     {
         // Implementasi materi Custom Resource Collection
         return [
-            'data' => $this->collection,
-            'total' => count($this->collection)
+            // 'data' => $this->collection,
+            // 'total' => count($this->collection)
+
+
+            // Implementasi materi Nested Resource
+            'data' => CategorySimpleResource::collection($this->collection),
+            'total' => count($this->collection),
         ];
     }
 }

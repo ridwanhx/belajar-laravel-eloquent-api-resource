@@ -122,16 +122,30 @@ class ResourceTest extends TestCase
                 [
                     'id' => $categories[0]->id,
                     'name' => $categories[0]->name,
-                    'created_at' => $categories[0]->created_at->toJson(),
-                    'updated_at' => $categories[0]->updated_at->toJson(),
+                    // Implementasi materi Nested Resource
+                    // karena sebelumnya pada CategorySimpleResource.php kita telah mendefinisikan id, dan name saja, serta kita juga sudah melakukan nested resource pada CategoryCollection.php maka perlu ada penyesuaian pada bagian test ini
+                    // dimana kita akan mendisable bagian program dibawah ini agar tidak diikutsertakan kedalam test
+                    // 'created_at' => $categories[0]->created_at->toJson(),
+                    // 'updated_at' => $categories[0]->updated_at->toJson(),
                 ],
                 [
                     'id' => $categories[1]->id,
                     'name' => $categories[1]->name,
-                    'created_at' => $categories[1]->created_at->toJson(),
-                    'updated_at' => $categories[1]->updated_at->toJson(),
+                    // Implementasi materi Nested Resource
+                    // karena sebelumnya pada CategorySimpleResource.php kita telah mendefinisikan id, dan name saja, serta kita juga sudah melakukan nested resource pada CategoryCollection.php maka perlu ada penyesuaian pada bagian test ini
+                    // dimana kita akan mendisable bagian program dibawah ini agar tidak diikutsertakan kedalam test
+                    // 'created_at' => $categories[1]->created_at->toJson(),
+                    // 'updated_at' => $categories[1]->updated_at->toJson(),
                 ],
             ]
         ]);
     }
+
+
+
+    // # Nested Resource
+    // Saat kita menggunakan Resource, contoh pada Resource Collection, kita juga bisa menggunakan Resource lainnya
+    // Secara default, method toArray() akan dikonversi menjadi JSON
+    // Namun, kita bisa menggunakan Resource lain jika kita mau
+    // File implementasi: CategorySimpleResource.php
 }
