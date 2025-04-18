@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CategoryCollection;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Resources\CategoryResource;
@@ -24,5 +25,13 @@ class CategoryController extends Controller
     {
         $ategories = Category::all();
         return CategoryResource::collection($ategories);
+    }
+
+
+    // Implementasi materi Custom Resource Collection
+    public function customResourceCollection()
+    {
+        $categories = Category::all();
+        return new CategoryCollection($categories);
     }
 }

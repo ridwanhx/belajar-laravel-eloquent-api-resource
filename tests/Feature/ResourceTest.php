@@ -93,4 +93,45 @@ class ResourceTest extends TestCase
             ],
         ]);
     }
+
+
+
+    // # Custom Resource Collection
+    // Kadang, kita ingin membuat class Resource Collection secara manual, tanpa menggunakan Resource Class yang sebelumnya sudah kita buat untuk single object
+    // Pada kasus ini, kita bisa membuat Resource baru, namun menggunakan tambahan parameter --collection :
+    // php artisan make:resource NamaCollection --collection
+    // perbedaan dengan penulisan tanpa --collection sebelumnya, ia akan membuat resource yang turunan dari JSON Resource
+    // Sedangkan untuk penulisan dengan parameter --collection, secara otomatis class Resource adalah turunan dari class ResourceCollection
+    // Untuk mengambil informasi collection nya, kita bisa menggunakan attribute $collection di dalam isi dari class ResourceCollection nya
+    // File Implementasi: CategoryCollection.php
+
+    // Implementasi tes
+    public function testCustomResourceCollection()
+    {
+        // jalankan seeder
+        $this->seed([CategorySeeder::class]);
+
+        // penggil semua data category
+        $categories = Category::all();
+
+        $this->get('/api/categories-custom')
+        ->assertStatus(200)
+        ->assertJson([
+            'total' => 2,
+            'data' => [
+                [
+                    'id' => $categories[0]->id,
+                    'name' => $categories[0]->name,
+                    'created_at' => $categories[0]->created_at->toJson(),
+                    'updated_at' => $categories[0]->updated_at->toJson(),
+                ],
+                [
+                    'id' => $categories[1]->id,
+                    'name' => $categories[1]->name,
+                    'created_at' => $categories[1]->created_at->toJson(),
+                    'updated_at' => $categories[1]->updated_at->toJson(),
+                ],
+            ]
+        ]);
+    }
 }

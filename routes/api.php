@@ -27,3 +27,7 @@ Route::get('/categories/{id}', [CategoryController::class, 'category_resource'])
 
 // Implementasi materi Resource Collection
 Route::get('/categories', [CategoryController::class, 'resourceCollection']);
+
+
+// Implementasi materi Custom Resource Collection
+Route::get('/categories-custom', [CategoryController::class, 'customResourceCollection']);
