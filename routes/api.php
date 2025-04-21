@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 
 /*
@@ -31,3 +32,7 @@ Route::get('/categories', [CategoryController::class, 'resourceCollection']);
 
 // Implementasi materi Custom Resource Collection
 Route::get('/categories-custom', [CategoryController::class, 'customResourceCollection']);
+
+
+// Implementasi materi Data Wrap
+Route::get('/products/{id}', [ProductController::class, 'data_wrap']);
