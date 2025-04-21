@@ -10,6 +10,8 @@ use Database\Seeders\CategorySeeder;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+use function PHPUnit\Framework\assertContains;
+
 class DataWrapTest extends TestCase
 {
     public function setUp(): void
@@ -50,5 +52,36 @@ class DataWrapTest extends TestCase
                 'updated_at' => $product->updated_at->toJson(),
             ]
         ]);
+    }
+
+
+
+    // # Data Wrap Collection
+    // Khusus untuk mengubah attribute $wrap untuk Collection, kita tidak bisa menggunakan NamaResource::collection(), hal ini karena kode tersebut sebenarnya akan membuat object AnonymousResourceCollection, bukan menggunakan Resource yang kita buat
+    // Jika hasil result JSON ResourceCollection.toArray() mengandung attribute yang terdapat di $wrap, maka Laravel tidak akan melakukan wrap, namun jika tidak ada, maka akan melakukan wrap
+    // File Implementasi ProductCollection.php, api.php, ProductController.php
+
+    // Implementasi test
+    public function testDataWrapCollection()
+    {
+        // jalankan seeders
+        $this->seed([CategorySeeder::class, ProductSeeder::class]);
+
+        // simpan output dari halaman yang dituju kedalam var response
+        $response = $this->get('/api/products')
+        // pastikan status 200
+        ->assertStatus(200);
+        // ambil semua names dari response
+        $names = $response->json("data.*.name");
+        // lakukan iterasi sebanyak 5x
+        for ( $i = 1; $i <= 5; $i++ ) {
+            // pastikan string berikut(jarum) ada didalam iterable $names(jerami)
+            assertContains("Product $i of Gadget", $names);
+        }
+        
+        for ( $i = 1; $i <= 5; $i++ ) {
+            // pastikan string berikut(jarum) ada didalam iterable $names(jerami)
+            assertContains("Product $i of Automotive", $names);
+        }
     }
 }
