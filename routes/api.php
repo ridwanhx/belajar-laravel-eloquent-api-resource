@@ -40,3 +40,7 @@ Route::get('/products/{id}', [ProductController::class, 'data_wrap']);
 
 // Implementasi materi Data Wrap Collection
 Route::get('/products', [ProductController::class, 'data_wrap_collection']);
+
+
+// # Implementasi materi Pagination
+Route::get('/products-paging', [ProductController::class, 'products_paging']);

@@ -24,4 +24,13 @@ class ProductController extends Controller
         $products = Product::all();
         return new ProductCollection($products);
     }
+
+
+    // Implementasi materi Pagination
+    public function products_paging( Request $request )
+    {
+        $page = $request->get('page', 1);
+        $products = Product::paginate(perPage: 2, page: $page);
+        return new ProductCollection($products);
+    }
 }
