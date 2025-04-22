@@ -44,3 +44,7 @@ Route::get('/products', [ProductController::class, 'data_wrap_collection']);
 
 // # Implementasi materi Pagination
 Route::get('/products-paging', [ProductController::class, 'products_paging']);
+
+
+// Implementasi materi Additional Metadata
+Route::get('/products-debug/{id}', [ProductController::class, 'products_debug']);

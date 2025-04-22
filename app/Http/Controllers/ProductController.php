@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\ProductCollection;
+use App\Http\Resources\ProductDebugResource;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -32,5 +33,13 @@ class ProductController extends Controller
         $page = $request->get('page', 1);
         $products = Product::paginate(perPage: 2, page: $page);
         return new ProductCollection($products);
+    }
+
+
+    // Implementasi materi Additional Metadata
+    public function products_debug($id)
+    {
+        $product = Product::find($id);
+        return new ProductDebugResource($product);
     }
 }
