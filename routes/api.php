@@ -45,7 +45,12 @@ Route::get('/categories-custom', [CategoryController::class, 'customResourceColl
 Route::get('/products/{id}', function ($id) {
     $products = Product::find($id);
     $products->load('category');    // load data category
-    return new ProductResource($products);
+    // return new ProductResource($products);
+
+    // Implementasi materi Resource Response
+    return (new ProductResource($products))
+    ->response()
+    ->header('X-Powered-By', 'Lorem Ipsum');
 });
 
 
