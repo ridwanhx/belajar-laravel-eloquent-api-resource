@@ -29,8 +29,12 @@ class ProductResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'price' => $this->price,
+            // Implementasi materi Conditional Attributes
+            'is_expensive' => $this->when($this->price > 1000, true, false),
             'stock' => $this->stock,
-            'category' => new CategorySimpleResource($this->category),
+            // Implementasi materi Conditional Attributes
+            // 'category' => new CategorySimpleResource($this->category), // before Conditional Attributes
+            'category' => new CategorySimpleResource($this->whenLoaded('category')),    // after
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

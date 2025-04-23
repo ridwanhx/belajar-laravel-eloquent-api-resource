@@ -1,9 +1,12 @@
 <?php
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Resources\ProductCollection;
+use App\Http\Resources\ProductResource;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,11 +38,26 @@ Route::get('/categories-custom', [CategoryController::class, 'customResourceColl
 
 
 // Implementasi materi Data Wrap
-Route::get('/products/{id}', [ProductController::class, 'data_wrap']);
+// Route::get('/products/{id}', [ProductController::class, 'data_wrap']);
+
+
+// Implementasi materi Conditional Attributes
+Route::get('/products/{id}', function ($id) {
+    $products = Product::find($id);
+    $products->load('category');    // load data category
+    return new ProductResource($products);
+});
 
 
 // Implementasi materi Data Wrap Collection
-Route::get('/products', [ProductController::class, 'data_wrap_collection']);
+// Route::get('/products', [ProductController::class, 'data_wrap_collection']);
+
+
+// Implementasi materi Conditional Attributes
+Route::get('/products', function () {
+    $products = Product::with('category')->get();
+    return new ProductCollection($products);
+});
 
 
 // # Implementasi materi Pagination
