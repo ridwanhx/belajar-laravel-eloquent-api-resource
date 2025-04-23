@@ -24,4 +24,9 @@ class IntroductionTest extends TestCase
 
     // # Membuat Model
     // Buatlah model Category dan Product, dimana Category memiliki relasi one to many ke Product
+
+
+
+    // # Materi Selanjutnya
+    // Laravel RESTful API
 }
